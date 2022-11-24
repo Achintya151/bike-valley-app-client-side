@@ -1,10 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import DashboadLayout from '../../Layouts/Dashboard/DashboadLayout';
 import Main from '../../Layouts/Main/Main';
-import About from '../../Pages/About/About';
+import AboutPage from '../../Pages/About/AboutPage';
 import Blogs from '../../Pages/Blogs/Blogs/Blogs';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login/Login';
+import Signup from '../../Pages/Login/Signup/Signup';
 
 const router = createBrowserRouter([
     {
@@ -21,11 +22,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/about',
-                element: <About></About>
+                element: <AboutPage></AboutPage>
             },
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/signup',
+                element: <Signup></Signup>
             },
         ]
     },

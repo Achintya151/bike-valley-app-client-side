@@ -1,10 +1,25 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Login = () => {
 
-    const { signIn } = useContext(AuthContext);
+    const { signIn, providerLogin } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const googleProvider = new GoogleAuthProvider();
+
+    const handleGoogleLogin = () => {
+        providerLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                navigate('/')
+            })
+            .catch(e => console.error(e))
+    }
 
     const handleLogin = e => {
         e.preventDefault();
@@ -17,6 +32,7 @@ const Login = () => {
                 const user = result.user;
                 form.reset();
                 console.log(user);
+                navigate('/')
             })
             .catch(e => console.error(e))
     }
@@ -28,7 +44,7 @@ const Login = () => {
                     <h1 className="text-5xl font-bold">Login now!</h1>
                     <p className='py-4'>New to Bike valley? Please <Link className="link link-hover text-success font-semibold" to='/signup'>Sign Up</Link></p>
                     <div className="divider">OR</div>
-                    <button className="btn btn-success btn-wide text-white my-2">Google</button>
+                    <button onClick={handleGoogleLogin} className="btn btn-success btn-wide text-white my-2">Google</button>
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleLogin} className="card-body">

@@ -17,11 +17,12 @@ const Navbar = () => {
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blogs'>Blogs</Link></li>
-        <li><Link to='/dashboard'>Dashboard</Link></li>
         <li>
             {
-                !user?.email &&
-                <Link to='/login'>Login</Link>
+                user?.email ?
+                    <Link to='/dashboard'>Dashboard</Link>
+                    :
+                    <Link to='/login'>Login</Link>
             }
         </li>
     </>

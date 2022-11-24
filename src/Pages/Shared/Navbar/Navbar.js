@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../Assets/Images/logo.jpg';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Navbar = () => {
+
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then()
+            .catch(e => console.error(e))
+    }
 
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blogs'>Blogs</Link></li>
         <li><Link to='/dashboard'>Dashboard</Link></li>
-        <li><Link to='/login'>Login</Link></li>
+        <li>
+            {
+                !user?.email &&
+                <Link to='/login'>Login</Link>
+            }
+        </li>
     </>
 
     return (
@@ -37,25 +51,22 @@ const Navbar = () => {
                     {menuItems}
                 </ul>
             </div>
-            <div className='navbar-end'>
-                <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img src="https://placeimg.com/80/80/people" alt='' />
-                        </div>
-                    </label>
-                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        {/* <li>
-                            <a className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </a>
-                        </li>
-                        <li><a>Settings</a></li>
-                        <li><a>Logout</a></li> */}
-                    </ul>
+            {
+                user?.email &&
+                <div className='navbar-end'>
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img src={user?.photoURL} alt='' />
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+
+                            <li><button onClick={handleLogOut} className='btn btn-ghost'>Logout</button></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     );
 };

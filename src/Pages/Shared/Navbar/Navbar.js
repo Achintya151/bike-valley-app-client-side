@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../Assets/Images/logo.jpg';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import { HiUserCircle } from "react-icons/hi";
 
 const Navbar = () => {
 
@@ -52,20 +53,28 @@ const Navbar = () => {
                 </ul>
             </div>
             {
-                user?.email &&
-                <div className='navbar-end'>
-                    <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img src={user?.photoURL} alt='' />
-                            </div>
-                        </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                user?.email ?
+                    <>
+                        <div className='navbar-end'>
+                            <div className="dropdown dropdown-end">
+                                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-20 rounded-full">
+                                        <img src={user?.photoURL} alt='' />
+                                    </div>
+                                </label>
+                                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
 
-                            <li><button onClick={handleLogOut} className='btn btn-ghost'>Logout</button></li>
-                        </ul>
-                    </div>
-                </div>
+                                    <li><button onClick={handleLogOut} className='btn btn-ghost'>Logout</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className='navbar-end'>
+                            <HiUserCircle className='text-5xl' />
+                        </div>
+                    </>
             }
         </div>
     );

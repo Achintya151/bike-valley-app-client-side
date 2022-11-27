@@ -1,0 +1,74 @@
+[
+    {
+        "name": "hero splendor",
+        "img": "https://ic1.maxabout.us/autos/tw_india//N/2022/2/new-hero-splendor-plus-black-and-accent-edition-pr.jpg",
+        "location": "Dhaka",
+        "resalePrice": "70,000",
+        "originalPrice": "90,0000",
+        "yearsOfUse": "10",
+        "postedTime": "now",
+        "sellerName": "Akkash Ali",
+        "sellerVerified": true,
+        "category": "100cc"
+    },
+    {
+        "name": "bajaj pulser",
+        "img": "https://cdn.bajajauto.com/-/media/Assets/bajajauto/bikes/pulsar-150/Gallery/Images/POPUP-Images/8.ashx",
+        "location": "Dhaka",
+        "resalePrice": "150,000",
+        "originalPrice": "190,0000",
+        "yearsOfUse": "5",
+        "postedTime": "now",
+        "sellerName": "Bikash Sarker",
+        "sellerVerified": true,
+        "category": "150cc"
+    },
+    {
+        "name": "hero splendor",
+        "img": "https://ic1.maxabout.us/autos/tw_india//N/2022/2/new-hero-splendor-plus-black-and-accent-edition-pr.jpg",
+        "location": "Dhaka",
+        "resalePrice": "70,000",
+        "originalPrice": "90,0000",
+        "yearsOfUse": "10",
+        "postedTime": "now",
+        "sellerName": "Akkash Ali",
+        "sellerVerified": true,
+        "category": "100cc"
+    },
+    {
+        "name": "hero ignitor",
+        "img": "https://www.heromotocorp.com/en-bd/uploads/bike/360/ignitor-125cc-1.jpg",
+        "location": "Dhaka",
+        "resalePrice": "70,000",
+        "originalPrice": "130,0000",
+        "yearsOfUse": "10",
+        "postedTime": "now",
+        "sellerName": "Ahmed hasan",
+        "sellerVerified": false,
+        "category": "125cc"
+    },
+    {
+        "name": "hero ignitor",
+        "img": "https://www.heromotocorp.com/en-bd/uploads/bike/360/ignitor-125cc-1.jpg",
+        "location": "Dhaka",
+        "resalePrice": "70,000",
+        "originalPrice": "130,0000",
+        "yearsOfUse": "10",
+        "postedTime": "now",
+        "sellerName": "Ali",
+        "sellerVerified": true,
+        "category": "125cc"
+    },
+    {
+        "name": "bajaj pulser",
+        "img": "https://cdn.bajajauto.com/-/media/Assets/bajajauto/bikes/pulsar-150/Gallery/Images/POPUP-Images/8.ashx",
+        "location": "Dhaka",
+        "resalePrice": "150,000",
+        "originalPrice": "190,0000",
+        "yearsOfUse": "15",
+        "postedTime": "now",
+        "sellerName": "Kelash Sarker",
+        "sellerVerified": false,
+        "category": "150cc"
+    }
+]

@@ -2,14 +2,14 @@ import React from 'react';
 import AboutSection from '../AboutSection/AboutSection';
 import AdvertisedItem from '../AdvertisedItem/AdvertisedItem';
 import Banner from '../Banner/Banner';
-import ProductCategories from '../ProductCategories/ProductCategories';
+import BikeCategories from '../BikeCategories/BikeCategories';
 
 const Home = () => {
     return (
         <div className='max-w-[1440px] mx-auto'>
             <Banner></Banner>
             <AdvertisedItem></AdvertisedItem>
-            <ProductCategories></ProductCategories>
+            <BikeCategories></BikeCategories>
             <AboutSection></AboutSection>
         </div>
     );

@@ -1,5 +1,6 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
@@ -16,6 +17,8 @@ const Signup = () => {
                 const user = result.user;
                 console.log(user);
                 navigate('/')
+                const role = 'Buyer'
+                saveUser(user?.displayName, user?.email, role)
             })
             .catch(e => console.error(e))
     }
@@ -27,26 +30,43 @@ const Signup = () => {
         const photoURL = form.photoURL.value;
         const email = form.email.value;
         const password = form.password.value;
+        const role = form.role.value;
 
         createUser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
                 form.reset();
-                handleUpdateUser(name, photoURL);
+                handleUpdateUser(name, email, photoURL, role);
                 navigate('/')
+                toast.success('User created successfully')
             })
             .catch(e => console.error(e))
     }
 
-    const handleUpdateUser = (name, photoURL) => {
+    const handleUpdateUser = (name, email, photoURL, role) => {
         const userInfo = {
             displayName: name,
             photoURL: photoURL
         }
         updateUser(userInfo)
-            .then(() => { })
+            .then(() => {
+                saveUser(name, email, role)
+            })
             .catch(e => console.error(e))
+    }
+
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
     }
 
     return (
@@ -62,29 +82,29 @@ const Signup = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input name='name' type="text" placeholder="name" className="input input-bordered" />
+                            <input name='name' type="text" placeholder="name" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Photo</span>
                             </label>
-                            <input name='photoURL' type="text" placeholder="photo" className="input input-bordered" />
+                            <input name='photoURL' type="text" placeholder="photo" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input name='email' type="text" placeholder="email" className="input input-bordered" />
+                            <input name='email' type="text" placeholder="email" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input name='password' type="text" placeholder="password" className="input input-bordered" />
+                            <input name='password' type="text" placeholder="password" className="input input-bordered" required />
                             <label className="label">
                                 <span className='label-text'>Select your account type</span>
                             </label>
-                            <select className="select select-bordered w-full max-w-sm">
+                            <select name='role' className="select select-bordered w-full max-w-sm" required>
                                 <option selected>Buyer</option>
                                 <option>Seller</option>
                             </select>

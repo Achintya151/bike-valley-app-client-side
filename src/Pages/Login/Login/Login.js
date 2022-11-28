@@ -17,6 +17,8 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 navigate('/')
+                const role = 'Buyer'
+                saveUser(user?.displayName, user?.email, role)
             })
             .catch(e => console.error(e))
     }
@@ -35,6 +37,19 @@ const Login = () => {
                 navigate('/')
             })
             .catch(e => console.error(e))
+    }
+
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
     }
 
     return (

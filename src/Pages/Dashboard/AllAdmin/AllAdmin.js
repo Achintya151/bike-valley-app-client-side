@@ -3,15 +3,14 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import Loading from '../../Shared/Loading/Loading';
 
-const AllBuyers = () => {
+const AllAdmin = () => {
 
     const { data: users, isLoading, refetch } = useQuery({
-        queryKey: ['Buyer'],
+        queryKey: ['Admin'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/users?role=Buyer')
+                const res = await fetch('http://localhost:5000/users?role=Admin')
                 const data = await res.json();
-                console.log(data);
                 return data;
             } catch (error) {
 
@@ -48,10 +47,9 @@ const AllBuyers = () => {
     if (isLoading) {
         return <Loading></Loading>
     }
-
     return (
         <div>
-            <h2 className='text-4xl font-bold text-start mb-4'>Buyers List</h2>
+            <h2 className='text-4xl font-bold text-start mb-4'>Sellers List</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
 
@@ -60,8 +58,7 @@ const AllBuyers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Verify</th>
-                            <th>Make Admin</th>
+                            <th>Admin</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -74,8 +71,8 @@ const AllBuyers = () => {
                                 <th>{i + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td><button className='btn bg-blue-700'>Verify</button></td>
-                                <td><button className='btn btn-success' onClick={() => handleMakeAdmin(user._id)}>Make Admin</button></td>
+
+                                <td>{user.role === 'Admin' && 'Admin'}</td>
                                 <td><button className='btn btn-error btn-circle btn-xs text-white font-bold' onClick={() => handleDelete(user)}>X</button></td>
                             </tr>)
                         }
@@ -89,4 +86,4 @@ const AllBuyers = () => {
     );
 };
 
-export default AllBuyers;
+export default AllAdmin;

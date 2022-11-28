@@ -5,6 +5,12 @@ import NotFoundPage from '../../Layouts/NotFoundPage/NotFoundPage';
 import AboutPage from '../../Pages/About/AboutPage';
 import BikeCategoryPage from '../../Pages/BikeCategoryPage/BikeCategoryPage/BikeCategoryPage';
 import Blogs from '../../Pages/Blogs/Blogs/Blogs';
+import AddAProduct from '../../Pages/Dashboard/AddAProduct/AddAProduct';
+import AllAdmin from '../../Pages/Dashboard/AllAdmin/AllAdmin';
+import AllBuyers from '../../Pages/Dashboard/AllBuyers/AllBuyers';
+import AllSellers from '../../Pages/Dashboard/AllSellers/AllSellers';
+import Dashboard from '../../Pages/Dashboard/Dashboard/Dashboard';
+import MyProducts from '../../Pages/Dashboard/MyProducts/MyProducts';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login/Login';
 import Signup from '../../Pages/Login/Signup/Signup';
@@ -45,7 +51,29 @@ const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <PrivateRoute><DashboadLayout></DashboadLayout></PrivateRoute>
+        element: <PrivateRoute><DashboadLayout></DashboadLayout></PrivateRoute>,
+        children: [
+            {
+                path: '/dashboard/addproduct',
+                element: <AddAProduct></AddAProduct>
+            },
+            {
+                path: '/dashboard',
+                element: <Dashboard></Dashboard>
+            },
+            {
+                path: '/dashboard/allbuyers',
+                element: <AllBuyers></AllBuyers>
+            },
+            {
+                path: '/dashboard/alladmin',
+                element: <AllAdmin></AllAdmin>
+            },
+            {
+                path: '/dashboard/allsellers',
+                element: <AllSellers></AllSellers>
+            },
+        ]
     },
     {
         path: '*',

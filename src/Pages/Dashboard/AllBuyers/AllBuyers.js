@@ -6,10 +6,14 @@ import Loading from '../../Shared/Loading/Loading';
 const AllBuyers = () => {
 
     const { data: users, isLoading, refetch } = useQuery({
-        queryKey: ['Buyer'],
+        queryKey: ['users'],
         queryFn: async () => {
             try {
-                const res = await fetch('https://bikevally-app-server.vercel.app/users?role=Buyer')
+                const res = await fetch('https://bikevally-app-server.vercel.app/users', {
+                    headers: {
+                        role: 'Buyer'
+                    }
+                })
                 const data = await res.json();
                 return data;
             } catch (error) {
@@ -59,7 +63,6 @@ const AllBuyers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Verify</th>
                             <th>Make Admin</th>
                             <th>Delete</th>
                         </tr>
@@ -69,11 +72,10 @@ const AllBuyers = () => {
                     <tbody>
 
                         {
-                            users.map((user, i) => <tr key={user._id}>
+                            users?.map((user, i) => <tr key={user._id}>
                                 <th>{i + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td><button className='btn bg-blue-700'>Verify</button></td>
                                 <td><button className='btn btn-success' onClick={() => handleMakeAdmin(user._id)}>Make Admin</button></td>
                                 <td><button className='btn btn-error btn-circle btn-xs text-white font-bold' onClick={() => handleDelete(user)}>X</button></td>
                             </tr>)

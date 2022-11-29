@@ -1,4 +1,3 @@
-import { async } from '@firebase/util';
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
@@ -9,13 +8,11 @@ const MyOrders = () => {
 
     const email = user?.email;
 
-    console.log(email);
-
     const { data: bikes = [] } = useQuery({
         queryKey: [email],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/bookings?email=${email}`)
+                const res = await fetch(`https://bikevally-app-server.vercel.app/bookings?email=${email}`)
                 const data = await res.json();
                 return data;
             }
@@ -24,7 +21,6 @@ const MyOrders = () => {
             }
         }
     })
-    console.log(bikes);
     return (
         <div>
             <h2 className='text-4xl font-bold text-start mb-4'>My Orders</h2>

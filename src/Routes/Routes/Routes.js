@@ -10,10 +10,10 @@ import AllAdmin from '../../Pages/Dashboard/AllAdmin/AllAdmin';
 import AllBuyers from '../../Pages/Dashboard/AllBuyers/AllBuyers';
 import AllSellers from '../../Pages/Dashboard/AllSellers/AllSellers';
 import Dashboard from '../../Pages/Dashboard/Dashboard/Dashboard';
-import MyProducts from '../../Pages/Dashboard/MyProducts/MyProducts';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login/Login';
 import Signup from '../../Pages/Login/Signup/Signup';
+import AdminRoute from '../AdminRoute/AdminRoute';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 const router = createBrowserRouter([
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
             {
                 path: '/category/:name',
                 element: <PrivateRoute><BikeCategoryPage></BikeCategoryPage></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/bikes/${params.name}`)
+                loader: ({ params }) => fetch(`https://bikevally-app-server.vercel.app/bikes/${params.name}`)
             }
         ]
     },
@@ -63,11 +63,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allbuyers',
-                element: <AllBuyers></AllBuyers>
+                element: <AdminRoute><AllBuyers></AllBuyers></AdminRoute>
             },
             {
                 path: '/dashboard/alladmin',
-                element: <AllAdmin></AllAdmin>
+                element: <AdminRoute><AllAdmin></AllAdmin></AdminRoute>
             },
             {
                 path: '/dashboard/allsellers',

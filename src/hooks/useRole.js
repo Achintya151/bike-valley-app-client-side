@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 const useRole = (email) => {
     const [role, setRole] = useState([])
     const [roleLoading, setRoleLoading] = useState(true);
+    console.log(role);
 
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/users/${email}`)
+            fetch(`https://bikevally-app-server.vercel.app/usersbyemail/${email}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     setRole(data.users?.role)
                     setRoleLoading(false)
                 })

@@ -6,7 +6,7 @@ const BikeCategories = () => {
     const [bikeCategories, setBikeCategories] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/bikecategories')
+        fetch('https://bikevally-app-server.vercel.app/bikecategories')
             .then(res => res.json())
             .then(data => setBikeCategories(data))
     }, [])

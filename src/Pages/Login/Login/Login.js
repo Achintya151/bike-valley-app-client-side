@@ -1,13 +1,16 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Login = () => {
 
     const { signIn, providerLogin } = useContext(AuthContext);
 
+    const location = useLocation();
     const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || '/';
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -16,7 +19,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                navigate('/')
+                navigate(from, { replace: true });
                 const role = 'Buyer'
                 saveUser(user?.displayName, user?.email, role)
             })
@@ -34,14 +37,14 @@ const Login = () => {
                 const user = result.user;
                 form.reset();
                 console.log(user);
-                navigate('/')
+                navigate(from, { replace: true });
             })
             .catch(e => console.error(e))
     }
 
     const saveUser = (name, email, role) => {
         const user = { name, email, role }
-        fetch('http://localhost:5000/users', {
+        fetch('https://bikevally-app-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

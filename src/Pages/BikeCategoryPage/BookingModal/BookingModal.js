@@ -27,9 +27,7 @@ const BookingModal = ({ bikeInfo, setBikeInfo }) => {
             meetingLocation
         }
 
-        console.log(booking);
-
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://bikevally-app-server.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -38,7 +36,6 @@ const BookingModal = ({ bikeInfo, setBikeInfo }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.acknowledged) {
                     setBikeInfo(null)
                     toast.success('Booking Confirmed');

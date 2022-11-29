@@ -59,9 +59,7 @@ const AddAProduct = () => {
             postedTime: time
         }
 
-        console.log(product);
-
-        fetch('http://localhost:5000/bikes', {
+        fetch('https://bikevally-app-server.vercel.app/bikes', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -72,7 +70,7 @@ const AddAProduct = () => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success(`${name} added Successfully`)
-                    navigate('/dashboard/myproducts')
+                    navigate('/dashboard')
                 }
                 else {
                     toast.error(data.massage);

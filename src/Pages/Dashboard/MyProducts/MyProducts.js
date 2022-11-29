@@ -1,15 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
 const MyProducts = () => {
 
+    const { user } = useContext(AuthContext);
 
-    const { data: bikes, isLoading } = useQuery({
-        queryKey: ['bikes'],
+    const email = user?.email;
+
+    const navigate = useNavigate();
+
+
+    const { data: bikes, isLoading, refetch } = useQuery({
+        queryKey: ['bikes', email],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/bikes')
+                const res = await fetch(`https://bikevally-app-server.vercel.app/bikesbyemail/${email}`)
                 const data = await res.json();
                 return data;
             }
@@ -18,6 +27,20 @@ const MyProducts = () => {
             }
         }
     })
+
+    const handleAdvertise = bike => {
+        fetch(`https://bikevally-app-server.vercel.app/bikes/advertised/${bike._id}`, {
+            method: 'PUT'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success(`${bike.name} successfully added to Advertisement`)
+                    refetch()
+                    navigate('/')
+                }
+            })
+    }
 
     if (isLoading) {
         return <Loading></Loading>
@@ -53,7 +76,7 @@ const MyProducts = () => {
                                         <td className=' capitalize'>{bike.name}</td>
                                         <td>{bike.resalePrice}</td>
                                         <td>{!bike.saleStatus && 'Available'}</td>
-                                        <td><button className='btn btn-secondary'>Advertise</button></td>
+                                        <td><button className='btn btn-secondary' onClick={() => handleAdvertise(bike)} >Advertise</button></td>
                                         <td><button className='btn btn-error btn-circle btn-xs text-white font-bold'>X</button></td>
                                     </tr>)
                                 }

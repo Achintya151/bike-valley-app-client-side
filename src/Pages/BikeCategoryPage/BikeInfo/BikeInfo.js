@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { HiBadgeCheck } from 'react-icons/hi';
+import { AuthContext } from '../../../contexts/AuthProvider';
+import useVerify from '../../../hooks/useVerify';
+import Loading from '../../Shared/Loading/Loading';
 
 const BikeInfo = ({ bike, setBikeInfo }) => {
 
-    const { name, img, category, originalPrice, resalePrice, location, postedTime, sellerName, yearsOfUse, sellerVerified
+    const { name, img, category, originalPrice, resalePrice, location, postedTime, sellerName, sellerEmail, yearsOfUse, sellerVerified
     } = bike;
 
+    const [isVerified, isVerifiedLoading] = useVerify(sellerEmail)
+
+    console.log(isVerified.users?.sellerVerified);
+
+    if (isVerifiedLoading) {
+        return <Loading></Loading>
+    }
+
     return (
-        <div className="card card-side flex flex-row bg-base-100 shadow-xl">
-            <figure><img src={img} alt="Movie" /></figure>
-            <div className="card-body">
+        <div className="card card-side grid grid-cols-5 bg-base-100 shadow-xl my-4">
+            <figure className='col-span-3'><img src={img} alt="Movie" /></figure>
+            <div className="card-body col-span-2">
                 <h2 className="card-title text-4xl font-bold capitalize">{name}</h2>
                 <span><small>{postedTime}</small></span>
                 <div className='grid grid-cols-3 items-center text-lg pb-8'>
                     <p><strong>Seller's Name:</strong></p>
                     <p>{sellerName}</p>
                     {
-                        sellerVerified &&
+                        isVerified.users?.sellerVerified &&
                         <span className='text-blue-500'><HiBadgeCheck /></span>
+
                     }
                 </div>
 

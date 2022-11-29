@@ -9,7 +9,7 @@ const AllAdmin = () => {
         queryKey: ['Admin'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/users?role=Admin')
+                const res = await fetch('https://bikevally-app-server.vercel.app/users?role=Admin')
                 const data = await res.json();
                 return data;
             } catch (error) {
@@ -19,7 +19,7 @@ const AllAdmin = () => {
     })
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://bikevally-app-server.vercel.app/users/admin/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -32,7 +32,7 @@ const AllAdmin = () => {
     }
 
     const handleDelete = user => {
-        fetch(`http://localhost:5000/users/${user._id}`, {
+        fetch(`https://bikevally-app-server.vercel.app/users/${user._id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

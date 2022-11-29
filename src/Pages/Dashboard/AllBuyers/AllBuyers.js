@@ -9,9 +9,8 @@ const AllBuyers = () => {
         queryKey: ['Buyer'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/users?role=Buyer')
+                const res = await fetch('https://bikevally-app-server.vercel.app/users?role=Buyer')
                 const data = await res.json();
-                console.log(data);
                 return data;
             } catch (error) {
 
@@ -20,7 +19,7 @@ const AllBuyers = () => {
     })
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://bikevally-app-server.vercel.app/users/admin/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -33,7 +32,7 @@ const AllBuyers = () => {
     }
 
     const handleDelete = user => {
-        fetch(`http://localhost:5000/users/${user._id}`, {
+        fetch(`https://bikevally-app-server.vercel.app/users/${user._id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

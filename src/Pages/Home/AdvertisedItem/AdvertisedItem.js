@@ -1,12 +1,15 @@
 import React from 'react';
+import BikeInfo from '../../BikeCategoryPage/BikeInfo/BikeInfo';
 
-const AdvertisedItem = () => {
+const AdvertisedItem = ({ bikes }) => {
+
     return (
         <div>
-            <h2 className='text-4xl'>Advertised Item</h2>
-            <div className="flex justify-center items-center">
-                <div className="radial-progress animate-spin spinner-border text-success" style={{ "--value": 40 }} ></div>
-            </div>
+            <h2 className='text-4xl font-bold text-center py-8'>Advertised Item</h2>
+            {
+                bikes.map(bike => <BikeInfo key={bike._id}
+                    bike={bike}></BikeInfo>)
+            }
         </div>
     );
 };

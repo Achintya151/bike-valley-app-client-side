@@ -7,12 +7,15 @@ const AllSellers = () => {
 
 
     const { data: users, isLoading, refetch } = useQuery({
-        queryKey: ['Seller'],
+        queryKey: ['users'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/users?role=Seller')
+                const res = await fetch('https://bikevally-app-server.vercel.app/users', {
+                    headers: {
+                        role: 'Seller'
+                    }
+                })
                 const data = await res.json();
-                console.log(data);
                 return data;
             } catch (error) {
 
@@ -21,7 +24,7 @@ const AllSellers = () => {
     })
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://bikevally-app-server.vercel.app/users/admin/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -34,7 +37,7 @@ const AllSellers = () => {
     }
 
     const handleDelete = user => {
-        fetch(`http://localhost:5000/users/${user._id}`, {
+        fetch(`https://bikevally-app-server.vercel.app/users/${user._id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -42,6 +45,19 @@ const AllSellers = () => {
                 if (data.deletedCount > 0) {
                     refetch();
                     toast.success(`${user.name} deleted successfully`)
+                }
+            })
+    }
+
+    const handleVerification = user => {
+        fetch(`https://bikevally-app-server.vercel.app/users/verified/${user.email}`, {
+            method: 'PUT'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success(`${user.name} is verified successfully`)
+                    refetch()
                 }
             })
     }
@@ -71,11 +87,16 @@ const AllSellers = () => {
                     <tbody>
 
                         {
-                            users.map((user, i) => <tr key={user._id}>
+                            users?.map((user, i) => <tr key={user._id}>
                                 <th>{i + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td><button className='btn bg-blue-700'>Verify</button></td>
+                                <td>{
+                                    user.sellerVerified ?
+                                        <span>Verified</span>
+                                        :
+                                        <button className='btn bg-blue-700' onClick={() => handleVerification(user)}>Verify</button>
+                                }</td>
                                 <td><button className='btn btn-success' onClick={() => handleMakeAdmin(user._id)}>Make Admin</button></td>
                                 <td><button className='btn btn-error btn-circle btn-xs text-white font-bold' onClick={() => handleDelete(user)}>X</button></td>
                             </tr>)

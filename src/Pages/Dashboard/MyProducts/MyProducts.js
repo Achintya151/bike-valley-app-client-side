@@ -42,6 +42,19 @@ const MyProducts = () => {
             })
     }
 
+    const handleDelete = id => {
+        fetch(` https://bikevally-app-server.vercel.app/bikes/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success('Successfully deleted data')
+                    refetch()
+                }
+            })
+    }
+
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -77,7 +90,7 @@ const MyProducts = () => {
                                         <td>{bike.resalePrice}</td>
                                         <td>{!bike.saleStatus && 'Available'}</td>
                                         <td><button className='btn btn-secondary' onClick={() => handleAdvertise(bike)} >Advertise</button></td>
-                                        <td><button className='btn btn-error btn-circle btn-xs text-white font-bold'>X</button></td>
+                                        <td><button className='btn btn-error btn-circle btn-xs text-white font-bold' onClick={() => handleDelete(bike._id)}>X</button></td>
                                     </tr>)
                                 }
 

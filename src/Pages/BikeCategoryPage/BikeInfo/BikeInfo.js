@@ -1,10 +1,14 @@
 import React, { useContext } from 'react';
 import { HiBadgeCheck } from 'react-icons/hi';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useRole from '../../../hooks/useRole';
 import useVerify from '../../../hooks/useVerify';
 import Loading from '../../Shared/Loading/Loading';
 
 const BikeInfo = ({ bike, setBikeInfo }) => {
+
+    const { user } = useContext(AuthContext);
+    const [role, roleLoading] = useRole(user?.email);
 
     const { name, img, category, originalPrice, resalePrice, location, postedTime, sellerName, sellerEmail, yearsOfUse, sellerVerified
     } = bike;
@@ -13,7 +17,7 @@ const BikeInfo = ({ bike, setBikeInfo }) => {
 
     console.log(isVerified.users?.sellerVerified);
 
-    if (isVerifiedLoading) {
+    if (isVerifiedLoading || roleLoading) {
         return <Loading></Loading>
     }
 
@@ -43,9 +47,12 @@ const BikeInfo = ({ bike, setBikeInfo }) => {
 
 
                 <div className="card-actions justify-end py-4">
-                    <label
-                        onClick={() => setBikeInfo(bike)}
-                        htmlFor="booking-modal" className="btn btn-success text-white">Book Now</label>
+                    {
+                        role === 'Buyer' &&
+                        <label
+                            onClick={() => setBikeInfo(bike)}
+                            htmlFor="booking-modal" className="btn btn-success text-white">Book Now</label>
+                    }
                 </div>
             </div>
         </div >

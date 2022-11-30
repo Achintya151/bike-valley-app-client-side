@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
 const AllSellers = () => {
 
+    const { removeUser } = useContext(AuthContext);
 
     const { data: users, isLoading, refetch } = useQuery({
         queryKey: ['users'],
@@ -22,6 +24,12 @@ const AllSellers = () => {
             }
         }
     })
+
+    // const handleRemoveUser = email => {
+    //     removeUser(email)
+    //         .then()
+    //         .catch(e => console.error(e))
+    // }
 
     const handleMakeAdmin = id => {
         fetch(`https://bikevally-app-server.vercel.app/users/admin/${id}`, {
@@ -43,11 +51,14 @@ const AllSellers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
+                    // handleRemoveUser(user?.email)
                     refetch();
                     toast.success(`${user.name} deleted successfully`)
                 }
             })
     }
+
+
 
     const handleVerification = user => {
         fetch(`https://bikevally-app-server.vercel.app/users/verified/${user.email}`, {

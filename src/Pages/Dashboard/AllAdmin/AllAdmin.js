@@ -9,7 +9,11 @@ const AllAdmin = () => {
         queryKey: ['Admin'],
         queryFn: async () => {
             try {
-                const res = await fetch('https://bikevally-app-server.vercel.app/users?role=Admin')
+                const res = await fetch('https://bikevally-app-server.vercel.app/users', {
+                    headers: {
+                        role: 'Admin'
+                    }
+                })
                 const data = await res.json();
                 return data;
             } catch (error) {
@@ -18,18 +22,6 @@ const AllAdmin = () => {
         }
     })
 
-    const handleMakeAdmin = id => {
-        fetch(`https://bikevally-app-server.vercel.app/users/admin/${id}`, {
-            method: 'PUT'
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.modifiedCount > 0) {
-                    toast.success('Successfully made admin.')
-                    refetch();
-                }
-            })
-    }
 
     const handleDelete = user => {
         fetch(`https://bikevally-app-server.vercel.app/users/${user._id}`, {
@@ -49,7 +41,7 @@ const AllAdmin = () => {
     }
     return (
         <div>
-            <h2 className='text-4xl font-bold text-start mb-4'>Sellers List</h2>
+            <h2 className='text-4xl font-bold text-start mb-4'>Admin List</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
 

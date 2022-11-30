@@ -34,18 +34,19 @@ const Navbar = () => {
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </label>
+
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         {menuItems}
                     </ul>
                 </div>
                 <div className="btn btn-ghost normal-case">
                     <div className="avatar px-4">
-                        <div className="w-8 mask mask-hexagon">
+                        <div className="md:w-8 w-4 mask mask-hexagon">
                             <img src={logo} alt="" />
                         </div>
                     </div>
 
-                    <Link className='text-3xl' to='/'>Bike Valley</Link>
+                    <Link className='md:text-3xl text-sm' to='/'>Bike Valley</Link>
                 </div>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -59,7 +60,7 @@ const Navbar = () => {
                         <div className='navbar-end'>
                             <div className="dropdown dropdown-end">
                                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                    <div className="w-20 rounded-full">
+                                    <div className="md:w-20 w-8 rounded-full">
                                         <img src={user?.photoURL} alt='' />
                                     </div>
                                 </label>
@@ -73,10 +74,13 @@ const Navbar = () => {
                     :
                     <>
                         <div className='navbar-end'>
-                            <HiUserCircle className='text-5xl' />
+                            <HiUserCircle className='md:text-5xl text-sm' />
                         </div>
                     </>
             }
+            <label htmlFor="my-drawer-2" className="btn btn-ghost drawer-button lg:hidden md:ml-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+            </label>
         </div>
     );
 };

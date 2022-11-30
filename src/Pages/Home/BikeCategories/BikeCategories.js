@@ -14,7 +14,7 @@ const BikeCategories = () => {
     return (
         <div className='py-8'>
             <h2 className="text-4xl font-bold text-center pb-10">Categories</h2>
-            <div className='grid grid-cols-3 gap-4 justify-items-center'>
+            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 justify-items-center'>
                 {
                     bikeCategories.map(bikeCategory => <BikeCategory
                         key={bikeCategory._id}
